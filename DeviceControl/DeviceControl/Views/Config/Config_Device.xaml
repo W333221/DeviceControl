@@ -1,0 +1,162 @@
+﻿<UserControl
+    x:Class="DeviceControl.Views.Config.Config_Device"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:local="clr-namespace:DeviceControl.Views.Config"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+
+    <Grid>
+        <!--  设备配置  -->
+        <Border Margin="10" CornerRadius="10">
+            <Border.Background>
+                <SolidColorBrush Color="{DynamicResource RegionColor}" />
+            </Border.Background>
+            <Border.BorderBrush>
+                <SolidColorBrush Opacity="0.5" Color="{DynamicResource SecondaryBorderColor}" />
+            </Border.BorderBrush>
+            <Border.BorderThickness>
+                <Thickness
+                    Bottom="1"
+                    Left="1"
+                    Right="1"
+                    Top="1" />
+            </Border.BorderThickness>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="70" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*" />
+                    <ColumnDefinition Width="1900*" />
+                    <ColumnDefinition Width="10*" />
+                </Grid.ColumnDefinitions>
+                <hc:ScrollViewer Grid.Column="1">
+                    <StackPanel Orientation="Vertical">
+                        <hc:Divider
+                            Margin="10,10"
+                            VerticalAlignment="Bottom"
+                            Content="三色灯"
+                            FontSize="{DynamicResource TextLargeFontSize}" />
+
+                        <ItemsControl ItemTemplateSelector="{StaticResource FieldSelector}" ItemsSource="{Binding ColorLampConfig_FormFields}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid Columns="2" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemContainerStyle>
+                                <Style TargetType="ContentPresenter">
+                                    <Setter Property="Height" Value="50" />
+                                </Style>
+                            </ItemsControl.ItemContainerStyle>
+                        </ItemsControl>
+
+                        <!--<hc:Divider
+                            Margin="10,10"
+                            VerticalAlignment="Bottom"
+                            Content="RFID"
+                            FontSize="{DynamicResource TextLargeFontSize}" />
+
+                        <ItemsControl ItemTemplateSelector="{StaticResource FieldSelector}" ItemsSource="{Binding RfidConfig_FormFields}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid Columns="2" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemContainerStyle>
+                                <Style TargetType="ContentPresenter">
+                                    <Setter Property="Height" Value="50" />
+                                </Style>
+                            </ItemsControl.ItemContainerStyle>
+                        </ItemsControl>-->
+
+                        <!--<hc:Divider
+                            Margin="10,10"
+                            VerticalAlignment="Bottom"
+                            Content="IO模块"
+                            FontSize="{DynamicResource TextLargeFontSize}" />
+
+
+                        <ItemsControl ItemTemplateSelector="{StaticResource FieldSelector}" ItemsSource="{Binding IOModelConfig_FormFields}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid Columns="2" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemContainerStyle>
+                                <Style TargetType="ContentPresenter">
+                                    <Setter Property="Height" Value="50" />
+                                </Style>
+                            </ItemsControl.ItemContainerStyle>
+                        </ItemsControl>-->
+
+                        <!--<hc:Divider
+                            Margin="10,10"
+                            VerticalAlignment="Bottom"
+                            Content="扫码枪"
+                            FontSize="{DynamicResource TextLargeFontSize}" />
+
+                        <ItemsControl ItemTemplateSelector="{StaticResource FieldSelector}" ItemsSource="{Binding ScanConfig_FormFields}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid Columns="2" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemContainerStyle>
+                                <Style TargetType="ContentPresenter">
+                                    <Setter Property="Height" Value="50" />
+                                </Style>
+                            </ItemsControl.ItemContainerStyle>
+                        </ItemsControl>-->
+
+
+                        <!--<hc:Divider
+                            Margin="10,10"
+                            VerticalAlignment="Bottom"
+                            Content="刷卡器"
+                            FontSize="{DynamicResource TextLargeFontSize}" />
+
+                        <ItemsControl ItemTemplateSelector="{StaticResource FieldSelector}" ItemsSource="{Binding SwipeCardConfig_FormFields}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid Columns="2" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemContainerStyle>
+                                <Style TargetType="ContentPresenter">
+                                    <Setter Property="Height" Value="50" />
+                                </Style>
+                            </ItemsControl.ItemContainerStyle>
+                        </ItemsControl>-->
+
+                    </StackPanel>
+                </hc:ScrollViewer>
+
+                <Grid Grid.Row="1" Grid.Column="1">
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <Button
+                            MinWidth="100"
+                            MinHeight="40"
+                            Margin="10,0,10,0"
+                            Padding="2"
+                            VerticalAlignment="Center"
+                            Background="{DynamicResource PrimaryBrush}"
+                            BorderThickness="0"
+                            Command="{Binding SaveDeviceConfigCommand}"
+                            Content="保存"
+                            FontSize="{DynamicResource TextLargeFontSize}"
+                            Foreground="{DynamicResource TextIconBrush}" />
+                    </StackPanel>
+                </Grid>
+
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>
+

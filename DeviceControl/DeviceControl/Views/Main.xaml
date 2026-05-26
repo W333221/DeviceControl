@@ -1,0 +1,186 @@
+﻿<UserControl
+    x:Class="DeviceControl.Views.Main"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:local="clr-namespace:DeviceControl.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:subView="clr-namespace:DeviceControl.Views"
+    xmlns:vm="clr-namespace:DeviceControl.ViewModels"
+    d:DataContext="{d:DesignInstance Type=vm:MainViewModel}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    Background="{DynamicResource SecondaryRegionBrush}"
+    Loaded="UserControl_Loaded"
+    MouseDown="UserControl_MouseDown"
+    mc:Ignorable="d">
+    <Grid x:Name="gridcontent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="65" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="65" />
+        </Grid.RowDefinitions>
+
+        <Grid Background="{DynamicResource RegionBrush}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="360*" />
+                <ColumnDefinition Width="40*" />
+                <ColumnDefinition Width="280*" />
+                <ColumnDefinition Width="400*" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <hc:Divider
+                    MaxHeight="46"
+                    LineStrokeThickness="2"
+                    Orientation="Vertical" />
+                <Border
+                    Margin="10,10"
+                    Padding="8"
+                    Background="{DynamicResource LightPrimaryBrush}"
+                    CornerRadius="4">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontSize="{DynamicResource LargeFontSize}"
+                            Foreground="{DynamicResource PrimaryBrush}"
+                            Text="{Binding StationNo}" />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+            <TextBlock
+                Grid.Column="2"
+                Margin="12,0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="28"
+                Text="{Binding Title}" />
+
+        </Grid>
+        <!--  主体内容区域  -->
+        <ContentControl
+            Grid.Row="1"
+            Margin="14"
+            prism:RegionManager.RegionName="ContentRegion" />
+
+
+
+        <!--  底部操作区域  -->
+        <Grid
+            x:Name="gridBottom"
+            Grid.Row="2"
+            Background="{DynamicResource RegionBrush}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="400*" />
+                <ColumnDefinition Width="980*" />
+                <ColumnDefinition Width="540*" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Margin="24,0,0,0" Orientation="Horizontal">
+                <TextBlock
+                    VerticalAlignment="Center"
+                    FontSize="{DynamicResource SubHeadFontSize}"
+                    Text="{Binding Version, StringFormat='V{0}'}" />
+
+                <Button
+                    Margin="10,0,10,0"
+                    Padding="4"
+                    hc:IconElement.Geometry="{DynamicResource Icon.Message}"
+                    hc:IconElement.Height="22"
+                    hc:IconElement.Width="22"
+                    BorderThickness="0"
+                    Command="{Binding TipMsgVisibilityCommand}" />
+
+                <Button
+                    x:Name="btnMenu"
+                    Margin="10,0,10,0"
+                    Padding="4"
+                    hc:IconElement.Geometry="{DynamicResource AlignHStretchGeometry}"
+                    hc:IconElement.Height="22"
+                    hc:IconElement.Width="22"
+                    BorderThickness="0"
+                    Click="ButtonShowMenu_Click" />
+
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <Button
+                    Height="48"
+                    hc:BorderElement.CornerRadius="4"
+                    hc:IconElement.Geometry="{DynamicResource Icon.AlarmLight}"
+                    hc:IconElement.Height="24"
+                    hc:IconElement.Width="24"
+                    Command="{Binding SimulatedTighteningCommand}"
+                    Content="报警复位"
+                    FontSize="{DynamicResource HeadFontSize}"
+                    Style="{DynamicResource ButtonPrimary}" />
+                <Button
+                    x:Name="btnDeviceStatus"
+                    Height="48"
+                    Margin="10,0,0,0"
+                    VerticalAlignment="Center"
+                    hc:BorderElement.CornerRadius="4"
+                    hc:IconElement.Geometry="{DynamicResource Icon.DeviceStatus}"
+                    hc:IconElement.Height="24"
+                    hc:IconElement.Width="24"
+                    Background="{Binding AllDeviceStatus, Converter={StaticResource BoolToColorConverter}}"
+                    BorderThickness="0"
+                    Command="{Binding DeviceStatusCommand}"
+                    Content="设备通讯"
+                    FontSize="{DynamicResource HeadFontSize}"
+                    Style="{DynamicResource ButtonPrimary}" />
+            </StackPanel>
+
+
+            <Popup
+                x:Name="popupDevice"
+                Width="{Binding ActualWidth, ElementName=gridBottom}"
+                AllowsTransparency="True"
+                HorizontalOffset="14"
+                IsOpen="{Binding IsShowDeviceStatus}"
+                Placement="Top"
+                PlacementTarget="{Binding ElementName=gridBottom}"
+                StaysOpen="True"
+                VerticalOffset="-14">
+                <subView:DeviceStatus Margin="14">
+                    <subView:DeviceStatus.Effect>
+                        <DropShadowEffect
+                            BlurRadius="10"
+                            Direction="90"
+                            Opacity="0.5"
+                            ShadowDepth="10"
+                            Color="{DynamicResource BorderColor}" />
+                    </subView:DeviceStatus.Effect>
+                </subView:DeviceStatus>
+            </Popup>
+
+
+        </Grid>
+
+        <Border
+            Grid.RowSpan="4"
+            Grid.ColumnSpan="3"
+            MinHeight="80"
+            Margin="0,0,0,120"
+            VerticalAlignment="Bottom"
+            Background="{Binding TipMsgColor, Converter={StaticResource ResultToTipColorConverter}}"
+            Effect="{StaticResource EffectShadow2}"
+            Opacity="0.8"
+            Visibility="{Binding TipIsOpen}">
+            <TextBlock
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="40"
+                Foreground="{DynamicResource DefaultBrush}"
+                Text="{Binding TipMsg}"
+                TextWrapping="Wrap" />
+        </Border>
+
+        <local:SideMenu
+            x:Name="sideMenu"
+            Grid.RowSpan="4"
+            Width="0"
+            HorizontalAlignment="Left"
+            Opacity="0.8" />
+    </Grid>
+</UserControl>

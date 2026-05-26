@@ -1,0 +1,26 @@
+﻿<prism:PrismApplication
+    x:Class="DeviceControl.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:DeviceControl.Converters"
+    xmlns:local="clr-namespace:DeviceControl"
+    xmlns:prism="http://prismlibrary.com/">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/SkinDefault.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/Theme.xaml" />
+                <ResourceDictionary Source="/Themes/GlobalResources.xaml" />
+                <ResourceDictionary Source="/Themes/Icon.xaml" />
+
+            </ResourceDictionary.MergedDictionaries>
+
+            <converters:BoolToColorConverter x:Key="BoolToColorConverter" />
+            <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+            <converters:ResultToTipColorConverter x:Key="ResultToTipColorConverter" />
+            <converters:BoolToRadioConverter x:Key="BoolToRadioConverter" />
+            <converters:ObjectToIntConverter x:Key="ObjectToIntConverter" />
+
+        </ResourceDictionary>
+    </Application.Resources>
+</prism:PrismApplication>
